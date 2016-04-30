@@ -22,10 +22,16 @@ public class Mathematics
     {
     }
     
-    // Determine the GCD between two numbers.
+    // Determine the GCD (greatest common denominator) between two numbers.
     public static int FindGCD ( int a, int b )
     {
         return (0 == b) ? (a) : (FindGCD(b, a % b));
+    }
+    
+    // Determine LCM (least common multiple) of two numbers.
+    public static int FindLCM( int a, int b )
+    {
+        return (a * b) / FindGCD(a, b);
     }
     
     public static ArrayList<Integer> CreateNumListFromSieve( boolean[] sieve )
