@@ -3,12 +3,12 @@ Problem Solving and Team Dynamics Hackpack
 
 ## Table of Contents
 
-### Mathematics
+### Mathematics class
 
-### GraphTheory
+### GraphTheory.java class
 
-### DynamicProgramming
+### DynamicProgramming class
 
-### BruteForce
+### BruteForce class
 
-### Misc
+### Misc additional classes
