@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+
+/**
+ * Created by Team El Camino
+ */
 class Utilities
 {
     public static boolean areDoublesEqual(double first, double second )
@@ -300,7 +304,10 @@ class Plane
 
 
 public class Geometry
-{    
+{
+    public static void main(String[] argv){
+    }
+
     // Determine if a point is inside a given polygon. This will not determine if a point is on the boundary of a polygon.
     public static boolean IsPointInPoly( Vec point, ArrayList<Vec> poly )
     {

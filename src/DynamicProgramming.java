@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Created by Team El Camino
+ */
 class DynamicProgramming
 {
 

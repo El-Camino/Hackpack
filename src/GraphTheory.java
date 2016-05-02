@@ -1,14 +1,9 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.PriorityQueue;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.Timer;
+import java.util.*;
 
+
+/**
+ * Created by Team El Camino
+ */
 class Edge implements Comparable<Edge>
 {
     public int source;
@@ -38,6 +33,7 @@ class Edge implements Comparable<Edge>
 class Vertex implements Comparable<Vertex>
 {
     public int inDegree = 0;
+    public boolean visited = false;
     public ArrayList<Vertex> children = new ArrayList<Vertex>();
     
     @Override
@@ -355,8 +351,8 @@ public class GraphTheory
 
         // Add all of v's edges into the priority queue.
         PriorityQueue<Edge> pq = new PriorityQueue<Edge>();
-        for (int i=0; i<graph[v].size(); i++)
-            pq.offer( ((ArrayList<Edge>)graph[v]).get(i));
+        for (int i = 0; i < graph[v].size(); i++)
+            pq.offer(((ArrayList<Edge>) graph[v]).get(i));
 
         int numEdges = 0, res = 0;
 
@@ -368,24 +364,63 @@ public class GraphTheory
 
             // Add new items to priority queue - need to check which vertex is new.
             if (!used[next.source]) {
-                for (int i=0; i<graph[next.source].size(); i++)
-                    pq.offer( ((ArrayList<Edge>)graph[next.source]).get(i));
+                for (int i = 0; i < graph[next.source].size(); i++)
+                    pq.offer(((ArrayList<Edge>) graph[next.source]).get(i));
                 used[next.source] = true;
-            }
-            else {
-                for (int i=0; i<graph[next.dest].size(); i++)
-                    pq.offer( ((ArrayList<Edge>)graph[next.dest]).get(i));
+            } else {
+                for (int i = 0; i < graph[next.dest].size(); i++)
+                    pq.offer(((ArrayList<Edge>) graph[next.dest]).get(i));
                 used[next.dest] = true;
             }
 
             // Bookkeeping
             numEdges++;
             res += next.weight;
-            if (numEdges == n-1) break;
+            if (numEdges == n - 1) break;
         }
 
         // -1 indicates no MST, so not connected.
-        return numEdges == n-1 ? res : -1;
+        return numEdges == n - 1 ? res : -1;
+    }
+
+    // Run dfs to mark all children of rootVertex as visited. Also makes rootVertex as visited.
+    // Inputs: The root vertex of where the search begins.
+    // Nothing is returned but the graph is mutated.
+    public static void RunDFSAdjacencyList(Vertex rootVertex){
+        Stack<Vertex> stack = new Stack<>();
+        stack.add(rootVertex);
+
+        while(!stack.empty()){
+            Vertex v = stack.pop();
+
+            for (int i = 0; i < v.children.size(); i++) {
+                if(!v.children.get(i).visited){
+                    v.children.get(i).visited = true;
+                    stack.push(v.children.get(i));
+                }
+            }
+            rootVertex.visited = true;
+        }
+    }
+
+    // Run bfs to mark all children of rootVertex as visited. Also makes rootVertex as visited.
+    // Inputs: The root vertex of where the search begins.
+    // Nothing is returned but the graph is mutated.
+    public static void RunBFSAdjacencyList(Vertex rootVertex){
+        ArrayDeque<Vertex> queue = new ArrayDeque<>();
+        queue.add(rootVertex);
+        rootVertex.visited = true;
+
+        while(!queue.isEmpty()){
+            Vertex v = queue.poll();
+
+            for (int i = 0; i < v.children.size(); i++) {
+                if(!v.children.get(i).visited){
+                    v.children.get(i).visited = true;
+                    queue.add(v.children.get(i));
+                }
+            }
+        }
     }
     
     /**

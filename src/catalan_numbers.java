@@ -1,3 +1,7 @@
+/**
+ * Created by Team El Camino
+ */
+
 public class catalan_numbers {
 	// First 10 catalan numbers(0-based): 1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862
 	// Catalan numbers overflow longs after n = 34

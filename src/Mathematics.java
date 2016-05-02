@@ -2,7 +2,9 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+/**
+ * Created by Team El Camino
+ */
 class Term
 {
     public long base;
@@ -20,7 +22,6 @@ public class Mathematics
 
     public static void main( String[] args )
     {
-        System.out.println("ey");
     }
     
     // Determine the GCD (greatest common denominator) between two numbers.
@@ -153,5 +154,4 @@ public class Mathematics
         
         return maxSum;
     }
-    
 }
