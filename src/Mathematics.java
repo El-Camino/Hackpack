@@ -20,6 +20,7 @@ public class Mathematics
 
     public static void main( String[] args )
     {
+        System.out.println("ey");
     }
     
     // Determine the GCD (greatest common denominator) between two numbers.

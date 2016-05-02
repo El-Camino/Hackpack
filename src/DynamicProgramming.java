@@ -78,7 +78,7 @@ class DynamicProgramming
                     }
 
                     int score = dp[prev][possEnd] + TPCost(graph, possEnd, last);
-                    dp[mask][last] = Integer.min(dp[mask][last], score);
+                    dp[mask][last] = Math.min(dp[mask][last], score);
                 }
             }
         }
@@ -117,7 +117,7 @@ class DynamicProgramming
         {
             int currentCost = SolveMCM(matrices, dp, beg, i) + SolveMCM(matrices, dp, i + 1, end) + ( matrices[beg][0] * matrices[i][1] * matrices[end][1] );
 
-            minCost = Integer.min(minCost, currentCost);
+            minCost = Math.min(minCost, currentCost);
         }
 
         dp[beg][end] = minCost;
@@ -186,8 +186,8 @@ class DynamicProgramming
                 // smaller) set of substrings, which is why answers can be reused.
                 int costOfSubstitution = ( x.charAt(i - 1) == y.charAt(j - 1) ) ? 0 : 1;
 
-                table[i][j] = Integer.min(table[i - 1][j] + 1, table[i][j - 1] + 1);
-                table[i][j] = Integer.min(table[i][j], ( table[i - 1][j - 1] + costOfSubstitution ));
+                table[i][j] = Math.min(table[i - 1][j] + 1, table[i][j - 1] + 1);
+                table[i][j] = Math.min(table[i][j], ( table[i - 1][j - 1] + costOfSubstitution ));
             }
         }
 

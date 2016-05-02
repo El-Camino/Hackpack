@@ -282,7 +282,7 @@ public class GraphTheory
             // is smaller than the min distance from the source vertex to the vertex 'i', update the min distance.
             for ( int i = 0; i < graph.length; i++ )
             {
-                minDistances[i] = Integer.min(minDistances[i], minDistances[next] + graph[next][i]);
+                minDistances[i] = Math.min(minDistances[i], minDistances[next] + graph[next][i]);
             }
         }       
         
