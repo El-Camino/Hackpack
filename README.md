@@ -9,4 +9,6 @@ Problem Solving and Team Dynamics Hackpack
 
 ### DynamicProgramming
 
+### BruteForce
+
 ### Misc

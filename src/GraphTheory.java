@@ -48,7 +48,19 @@ public class GraphTheory
     static final int inf = (int)1e9;
 
     public static void main( String[] args )
-    {          
+    {
+        /*
+            Test edge list with weights:
+            4 4
+            0 1 1
+            1 2 1
+            2 3 1
+            1 3 1
+         */
+
+        // Test Bellman Ford
+//        int[][] matrix = BuildMatrixFromInput(true, true);
+//        System.out.println(Arrays.toString(RunBellmanFord(matrix, 0, 3)));
     }
     
     /**
@@ -421,6 +433,47 @@ public class GraphTheory
                 }
             }
         }
+    }
+
+    // Run Bellman-Ford's algorithm to determine shortest distance from a start vertex
+    // to all other vertices in the graph.
+    // Runtime: O(n^2)
+    public static int[] RunBellmanFord(int[][] matrix, int start){
+        int[] dist = new int[matrix.length];
+        int[] pred = new int[matrix.length];
+
+        for (int i = 0; i < matrix.length; i++) {
+            if(i == start){
+                dist[i] = 0;
+            }else{
+                dist[i] = inf;
+                pred[i] = -1;
+            }
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if(matrix[i][j] != inf){
+                    if(dist[i] + matrix[i][j] < dist[j]){
+                        dist[j] = dist[i] + matrix[i][j];
+                        pred[j] = i;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if(matrix[i][j] != inf){
+                    if(dist[i] + matrix[i][j] < dist[j]){
+                        System.out.println("Cycles detected");
+                    }
+                }
+            }
+        }
+
+        //Dist contains distance to each vertex
+        return dist;
     }
     
     /**
