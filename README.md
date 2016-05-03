@@ -39,6 +39,7 @@ Problem Solving and Team Dynamics Hackpack
 ##### Plane class
 #### Functions
 ##### `public static boolean IsPointInPoly( Vec point, ArrayList<Vec> poly )`
+##### `public static ArrayList<Vec> DetermineConvexHull( ArrayList<Vec> points, Vec start, boolean skipCollinear )`
 ##### `public static int FindDeterminant(int a[][], int n)`
 
 
