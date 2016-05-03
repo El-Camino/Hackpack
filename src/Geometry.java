@@ -7,8 +7,9 @@ import java.util.Stack;
 
 
 /**
- * Created by Team El Camino
+ * Everything here was created by Team El Camino
  */
+
 class Utilities
 {
     public static boolean areDoublesEqual(double first, double second )

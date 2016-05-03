@@ -1,7 +1,12 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-// Source: http://www.geeksforgeeks.org/greedy-algorithms-set-2-kruskals-minimum-spanning-tree-mst/
+/**
+ * Everything here was created by Team El Camino.
+ * 
+ * This class was implemented based on algorithmic descriptions from the following source:
+ * http://www.geeksforgeeks.org/greedy-algorithms-set-2-kruskals-minimum-spanning-tree-mst/
+ */
 
 public class kruskals_mst {
 	static int V, E;

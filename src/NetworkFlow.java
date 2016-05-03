@@ -3,10 +3,14 @@ import java.util.Queue;
 import java.util.Scanner;
 
 /**
- * Created by Team El Camino
+ * This class was taken from an online source.
+ * Source: http://bit.ly/1Mram1V
+ * 
+ * Note: The source code was modified to be zero-indexed.
+ * 
+ * El Camino's implementation is in the class 'edmonds_karp_max_flow'
  */
-// Source: http://bit.ly/1Mram1V
-// Note: The source code was modified to be zero-indexed.
+
 public class NetworkFlow
 {
     private int[] parent;

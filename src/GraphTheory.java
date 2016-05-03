@@ -2,8 +2,9 @@ import java.util.*;
 
 
 /**
- * Created by Team El Camino
+ * Everything here was created by Team El Camino
  */
+
 class Edge implements Comparable<Edge>
 {
     public int source;
@@ -348,51 +349,6 @@ public class GraphTheory
         }       
         
         return minDistances;
-    }
-    
-    // Run Prim's algorithm to generate the Minimum Spanning Tree for a graph.
-    // Inputs: The graph (represented as array of Edge lists) and the starting vertex.
-    // The sum of all weights of the MST is returned.
-    // Source: Arup's notes.
-    public static int RunPrims(ArrayList[] graph, int v) {
-
-        // Mark vertex v as being in mst.
-        int n = graph.length;
-        boolean[] used = new boolean[n];
-        used[v] = true;
-
-        // Add all of v's edges into the priority queue.
-        PriorityQueue<Edge> pq = new PriorityQueue<Edge>();
-        for (int i = 0; i < graph[v].size(); i++)
-            pq.offer(((ArrayList<Edge>) graph[v]).get(i));
-
-        int numEdges = 0, res = 0;
-
-        while (pq.size() > 0) {
-
-            // Get next edge.
-            Edge next = pq.poll();
-            if (used[next.source] && used[next.dest]) continue;
-
-            // Add new items to priority queue - need to check which vertex is new.
-            if (!used[next.source]) {
-                for (int i = 0; i < graph[next.source].size(); i++)
-                    pq.offer(((ArrayList<Edge>) graph[next.source]).get(i));
-                used[next.source] = true;
-            } else {
-                for (int i = 0; i < graph[next.dest].size(); i++)
-                    pq.offer(((ArrayList<Edge>) graph[next.dest]).get(i));
-                used[next.dest] = true;
-            }
-
-            // Bookkeeping
-            numEdges++;
-            res += next.weight;
-            if (numEdges == n - 1) break;
-        }
-
-        // -1 indicates no MST, so not connected.
-        return numEdges == n - 1 ? res : -1;
     }
 
     // Run dfs to mark all children of rootVertex as visited. Also makes rootVertex as visited.

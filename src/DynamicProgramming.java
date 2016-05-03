@@ -3,8 +3,11 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * Created by Team El Camino
+ * Everything except for the following functions was created by Team El Camino:
+ *      - SolveTSPRec()
+ * 
  */
+
 class DynamicProgramming
 {
 
@@ -12,7 +15,8 @@ class DynamicProgramming
     {
     }
 
-    /*
+    /* Solve the TP problem recursively. This was taken from online
+     * 
      * 
      * This must be done beforehand:
      * 

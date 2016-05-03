@@ -3,8 +3,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by Team El Camino
+ * Everything here was created by Team El Camino
  */
+
 class Term
 {
     public long base;
