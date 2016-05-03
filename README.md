@@ -21,6 +21,7 @@ Problem Solving and Team Dynamics Hackpack
 ##### `static int[] RunDijkstrasWithQueue(int[][] graph, int source)`
 ##### `static int[][] RunFloyds(int[][] graph)`
 ##### `static java.util.ArrayList<Vertex> RunTopoSort(Vertex[] graph)`
+##### `static java.util.ArrayList<Vertex> DetectCycle(Vertex[] graph)`
 
 ### DynamicProgramming class
 ##### `public static int SolveTSPRec( int start, int bitmask, int[][] dp, int[][] matrix )`
