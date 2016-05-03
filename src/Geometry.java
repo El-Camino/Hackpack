@@ -1,4 +1,9 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Scanner;
+import java.util.Stack;
 
 
 /**
@@ -9,6 +14,18 @@ class Utilities
     public static boolean areDoublesEqual(double first, double second )
     {
         return Math.abs(first - second) < 1e-9;
+    }
+    
+    public static int trueMod( int a, int b )
+    {
+        if ( a >= 0 )
+        {
+            return a % b;
+        }
+        else
+        {
+            return b + (a % b);
+        }
     }
 }
 
@@ -26,6 +43,7 @@ class Vec
     {
         dims.add(x);
         dims.add(y);
+        dims.add(0.0);
     }
     
     public Vec( double x, double y, double z )
@@ -65,14 +83,8 @@ class Vec
         dims.set(2, z);
     }
     
-    // The Vectors must be 3 dimensional to return a valid result.
     public Vec cross( Vec other )
-    {
-        if ( this.dims.size() != 3 )
-        {
-            return null;
-        }
-        
+    {        
         double resX = this.y() * other.z() - this.z() * other.y();
         double resY = -1 * ( this.x() * other.z() - this.z() * other.x() );
         double resZ = this.x() * other.y() - this.y() * other.x();
@@ -106,7 +118,31 @@ class Vec
     {
         Vec subResult = this.subtract(other);
         return subResult.dot(subResult);
-    }    
+    }
+    
+    public double magnitude()
+    {
+        return Math.sqrt(this.dot(this));
+    }
+    
+    public double angleBetween( Vec other )
+    {
+        return Math.acos(this.dot(other) / (this.magnitude() * other.magnitude()));
+    }
+    
+    @Override
+    public boolean equals( Object other )
+    {
+        Vec otherVec = (Vec)other;
+        
+        boolean isEqual = true;
+        for ( int i = 0; i < this.dims.size(); i++ )
+        {
+            isEqual &= (this.dims.get(i) == otherVec.dims.get(i));
+        }
+        
+        return isEqual;
+    }
 }
 
 class Line
@@ -305,7 +341,9 @@ class Plane
 
 public class Geometry
 {
-    public static void main(String[] argv){
+    public static void main(String[] argv)
+    {
+        
     }
 
     // Determine if a point is inside a given polygon. This will not determine if a point is on the boundary of a polygon.
@@ -327,7 +365,190 @@ public class Geometry
         
         // Return true if the sum equal 2pi.
         return Utilities.areDoublesEqual(sum, 2 * Math.PI);        
-    }   
+    }
+    
+    // Works for 2D points only.
+    public static boolean IsRightTurn( Vec first, Vec second, Vec third, boolean skipCollinear )
+    {
+        Vec firstVec = second.subtract(first);
+        Vec secondVec = third.subtract(second);
+        double crossMag = firstVec.cross(secondVec).z();
+        
+        if (skipCollinear) 
+        {
+            return (crossMag < 0 || Utilities.areDoublesEqual(crossMag, 0)) 
+                    && !first.equals(second) && !second.equals(third) && !first.equals(third);
+        }
+        else
+        {
+            return crossMag < 0;
+        }
+    }
+    
+    // Index is distance from top of stack.
+    public static <T> T GetElementFromStack( Stack<T> stack, int index)
+    {
+        if ( stack.isEmpty() )
+        {
+            return null;
+        }
+        else
+        {
+            int trueIndex = stack.size() - 1 - index;
+            trueIndex = trueIndex < 0 ? 0 : trueIndex;
+            
+            return stack.elementAt(trueIndex);       
+        }
+    }
+    
+    // Determine the list of points that constitute the convex hull of a set of points.
+    // This method only works with 2D points.
+    public static ArrayList<Vec> DetermineConvexHull( ArrayList<Vec> points, Vec start, boolean skipCollinear )
+    {
+        Stack<Vec> hull = new Stack<Vec>();
+        
+        if ( points.size() <= 1 )
+        {
+            return points;
+        }
+        
+        // If a start point is not provided, find it. 
+        // By default, it should be the one with the smallest y value (smallest x as tiebreaker)
+        if ( null == start )
+        {
+            start = points.get(0);        
+            for ( int i = 1; i < points.size(); i++ )
+            {
+                Vec point = points.get(i); 
+                if ( point.y() < start.y() )
+                {
+                    start = point;
+                }
+                else if ( point.y() == start.y() )
+                {
+                    start = (point.x() < start.x()) ? (point) : (start);
+                }
+            }
+        }
+        
+        final Vec startFinal = start;
+        
+        // Sort points based on angle to start.
+        LinkedList<Vec> sortedPoints = new LinkedList<Vec>(points);
+        
+        // Remove the start point from the beginning, append to end to eliminate
+        // case in which last point is collinear with second-to-last point and start.
+        sortedPoints.remove(start);
+        Collections.sort(sortedPoints, new Comparator<Vec>()
+                {            
+                    Vec xAxis = new Vec(1,0);
+            
+                    @Override
+                    public int compare( Vec arg0, Vec arg1 )
+                    {
+                        if ( Utilities.areDoublesEqual(arg0.magnitude(), 0) ) return -1;
+                        if ( Utilities.areDoublesEqual(arg1.magnitude(), 0) ) return 1;
+                        
+                        int angleDiff = (int)(1000000 *(xAxis.angleBetween(arg0.subtract(startFinal)) - xAxis.angleBetween(arg1.subtract(startFinal))));
+                        if ( 0 != angleDiff )
+                        {
+                            return angleDiff;
+                        }
+                        
+                        // If angles are same, closer vector should be placed before.
+                        if ( startFinal.distanceSquared(arg0) < startFinal.distanceSquared(arg1) ) return -1;
+                        return 1;
+                    }
+            
+                });
+        sortedPoints.addLast(start);
+
+        // Add the start and first point from sorted list to hull.
+        hull.push(start);
+        hull.push(sortedPoints.poll());
+        
+        while ( !sortedPoints.isEmpty() )
+        {
+            Vec firstPoint = GetElementFromStack(hull, 1);
+            Vec secondPoint = GetElementFromStack(hull, 0);
+            Vec currPoint = sortedPoints.poll();
+            
+            // While the angle formed between the three points represents a right turn
+            // pop points off the stack.
+            while ( IsRightTurn(firstPoint, secondPoint, currPoint, skipCollinear) )
+            {
+                hull.pop();
+                firstPoint = GetElementFromStack(hull, 1);
+                secondPoint = GetElementFromStack(hull, 0);
+            }
+            
+            hull.push(currPoint);
+        }
+        
+        ArrayList<Vec> hullList = new ArrayList<Vec>(hull);
+        
+        // Remove the start pos from the end of list.
+        Vec last = hullList.get(hullList.size() - 1);
+        if ( last == start )
+        {
+            hullList.remove(hullList.size() - 1);
+        }
+        return hullList;
+    }
+    
+    // This is the harness for the problem "Convex Hull of Lattice Points",
+    // one of the problems we did during the first Geometry contests.
+    // The sample data is avaiable here:
+    // http://www.cs.ucf.edu/~dmarino/progcontests/cop4516/spr2016/team/team11.html
+    public static void TestConvexHull()
+    {
+        Scanner stdin = new Scanner(System.in);
+        int numCases = stdin.nextInt();
+
+        // Go through all the cases.
+        for (int loop=1; loop<=numCases; loop++) {
+
+            int dummy = stdin.nextInt();
+            int n = stdin.nextInt();
+
+            // Read in all points.
+            ArrayList<Vec> points = new ArrayList<Vec>();
+            for (int i=0; i<n; i++) {
+                int x = stdin.nextInt();
+                int y = stdin.nextInt();
+                points.add(new Vec(x,y));
+            }
+            
+            // Set the reference point.
+            Vec start = points.get(0);     
+            for ( int i = 1; i < points.size(); i++ )
+            {
+                Vec point = points.get(i); 
+                if ( point.y() > start.y() )
+                {
+                    start = point;
+                }
+                else if ( point.y() == start.y() )
+                {
+                    start = (point.x() < start.x()) ? (point) : (start);
+                }
+            }
+
+            // Output solution.
+            ArrayList<Vec> hull = DetermineConvexHull(points, null, true);
+            System.out.println(loop + " " + hull.size());
+            
+            int index = hull.indexOf(start);
+            int q = index;
+            do
+            {
+                System.out.println((int)hull.get(q).x() + " " + (int)hull.get(q).y());
+                
+                q = Utilities.trueMod(q - 1, hull.size());
+            }
+            while (q != index);
+        }
+    }
     
 
     // Source: https://technomanor.wordpress.com/2012/03/04/determinant-of-n-x-n-square-matrix/
