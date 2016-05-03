@@ -20,7 +20,6 @@ Problem Solving and Team Dynamics Hackpack
 ##### `static int[] RunDijkstrasWithoutQueue(int[][] graph, int source)`
 ##### `static int[] RunDijkstrasWithQueue(int[][] graph, int source)`
 ##### `static int[][] RunFloyds(int[][] graph)`
-##### `static int RunPrims(java.util.ArrayList[] graph, int v)`
 ##### `static java.util.ArrayList<Vertex> RunTopoSort(Vertex[] graph)`
 
 ### DynamicProgramming class
