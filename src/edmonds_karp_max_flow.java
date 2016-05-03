@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 
 /**
- * Everything here was created by Team El Camino
+ * Created by Team El Camino
  */
 
 public class edmonds_karp_max_flow {

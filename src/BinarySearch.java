@@ -1,5 +1,5 @@
 /**
- * Created by tylerleonhardt on 5/2/16.
+ * Created by Team El Camino
  */
 public class BinarySearch {
 

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Everything here was created by Team El Camino
+ * Created by Team El Camino
  */
 
 class Term

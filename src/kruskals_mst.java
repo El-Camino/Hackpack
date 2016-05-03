@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * Everything here was created by Team El Camino.
+ * Created by Team El Camino
  * 
  * This class was implemented based on algorithmic descriptions from the following source:
  * http://www.geeksforgeeks.org/greedy-algorithms-set-2-kruskals-minimum-spanning-tree-mst/

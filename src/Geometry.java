@@ -7,7 +7,7 @@ import java.util.Stack;
 
 
 /**
- * Everything here was created by Team El Camino
+ * Created by Team El Camino
  */
 
 class Utilities

@@ -1,8 +1,7 @@
 import java.util.*;
 
-
 /**
- * Everything here was created by Team El Camino
+ * Created by Team El Camino
  */
 
 class Edge implements Comparable<Edge>
