@@ -24,13 +24,13 @@ Problem Solving and Team Dynamics Hackpack
 #### `static java.util.ArrayList<Vertex> RunTopoSort(Vertex[] graph)`
 
 ### DynamicProgramming class
-#### `public static int FindLCSLength( String x, String y )`
-#### `public static int RunKnapsack( int[] weights, int[] values, int maxWeight, boolean returnSelection )`
-#### `public static int FindEditDistance( String x, String y )`
-#### `public static boolean SolveSubsetSum( int[] set, int t )`
-#### `public static int SolveMCM( int[][] matrices, int[][] dp, int beg, int end )`
-#### `public static int SolveTSDP( int[][] graph, int start, int end )`
 #### `public static int SolveTSPRec( int start, int bitmask, int[][] dp, int[][] matrix )`
+#### `public static int SolveTSDP( int[][] graph, int start, int end )`
+#### `public static int SolveMCM( int[][] matrices, int[][] dp, int beg, int end )`
+#### `public static boolean SolveSubsetSum( int[] set, int t )`
+#### `public static int FindEditDistance( String x, String y )`
+#### `public static int RunKnapsack( int[] weights, int[] values, int maxWeight, boolean returnSelection )`
+#### `public static int FindLCSLength( String x, String y )`
 
 ### Geometry class
 #### Classes
@@ -38,8 +38,8 @@ Problem Solving and Team Dynamics Hackpack
 ##### Line class
 ##### Plane class
 #### Functions
-##### `public static int FindDeterminant(int a[][], int n)`
 ##### `public static boolean IsPointInPoly( Vec point, ArrayList<Vec> poly )`
+##### `public static int FindDeterminant(int a[][], int n)`
 
 
 ### BruteForce class
